@@ -1,11 +1,12 @@
 CC=g++
 
-all: Day1 Day2
+.PHONY
+all: Day_1.a Day_2.a
 
-Day1: 
+Day_1.a: Day_1.cpp
 	$(CC) -o Day_1.a Day_1.cpp -std=c++11
 	
-Day2: 
+Day_2.a: Day_2.cpp
 	$(CC) -o Day_2.a Day_2.cpp -std=c++11 -g
 
 
