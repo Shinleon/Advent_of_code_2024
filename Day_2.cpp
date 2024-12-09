@@ -82,7 +82,7 @@ std::tuple<ValidStep, Ordering, Ordering> lookahead(int index, Ordering order, s
                     return_order_by_two = levels.at(index) < levels.at(index+2) ? Ordering::ASCENDING : Ordering::DESCENDING;
                 }
             }
-        } else {
+        } else { // but if we can look ahead by two but we are at the end of the line, we're clear
             result = result == ValidStep::BY_ONE ? BOTH : BY_TWO;
             return_order_by_two = order;
         }
