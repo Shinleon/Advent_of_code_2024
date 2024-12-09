@@ -63,8 +63,8 @@ int part_one() {
     std::ifstream myfile;
     myfile.open("Data/Day_1.txt");
     std::string temp;
-    std::vector<int> location_id1;
-    std::vector<int> location_id2;
+    std::vector<int> location_id1{};
+    std::vector<int> location_id2{};
     while(myfile) {
         myfile >> temp;
         // std::cout << temp << " " << std::stoi(temp) << "; ";
