@@ -18,7 +18,6 @@ void part1() {
         std::string temp;
         int* prev = nullptr;
         bool* ascending = nullptr;
-        ;
         bool line_safe = true;
         while(std::getline(iss, temp, ' ') && line_safe) {
             int curr = std::stoi(temp);
@@ -40,7 +39,7 @@ void part1() {
             }
         }
         if (line_safe) counter++;
-        std::cout << "\"" << line_store << "\"" << (line_safe ? "true" : "false") << std::endl;
+        std::cout << "\"" << line_store << "\" " << (line_safe ? "good" : "bad") << std::endl;
     }
     std::cout << "total: " << counter << std::endl;
 }
