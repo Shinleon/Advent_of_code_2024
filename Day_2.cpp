@@ -64,26 +64,26 @@ void part1() {
 
 std::tuple<ValidStep, Ordering, Ordering> lookahead(int index, Ordering order, std::vector<int> levels, bool fault_used) {
     ValidStep result = NEITHER;
-    Ordering return_order_by_one = Ordering::UNKNOWN;
-    Ordering return_order_by_two = Ordering::UNKNOWN;
+    Ordering return_order_by_one = UNKNOWN;
+    Ordering return_order_by_two = UNKNOWN;
     if(index < levels.size() -1) {
         if (std::abs(levels.at(index) - levels.at(index+1)) <= 3 && levels.at(index) != levels.at(index+1)) {
-            if((order == Ordering::UNKNOWN) || (levels.at(index) < levels.at(index+1) ? order == Ordering::ASCENDING : order == Ordering::DESCENDING)) {
-                result = ValidStep::BY_ONE;
-                return_order_by_one = levels.at(index) < levels.at(index+1) ? Ordering::ASCENDING : Ordering::DESCENDING;
+            if((order == UNKNOWN) || (levels.at(index) < levels.at(index+1) ? order == ASCENDING : order == DESCENDING)) {
+                result = BY_ONE;
+                return_order_by_one = levels.at(index) < levels.at(index+1) ? ASCENDING : DESCENDING;
             }
         }
     }
     if(fault_used != true) { // we can look ahead by two
         if(index < levels.size()-2) {
             if (std::abs(levels.at(index) - levels.at(index+2)) <= 3 && levels.at(index) != levels.at(index+2)) {
-                if((order == UNKNOWN) || (levels.at(index) < levels.at(index+2) ? order == Ordering::ASCENDING : order == Ordering::DESCENDING)) {
-                    result = result == ValidStep::BY_ONE ? BOTH : BY_TWO;
-                    return_order_by_two = levels.at(index) < levels.at(index+2) ? Ordering::ASCENDING : Ordering::DESCENDING;
+                if((order == UNKNOWN) || (levels.at(index) < levels.at(index+2) ? order == ASCENDING : order == DESCENDING)) {
+                    result = result == BY_ONE ? BOTH : BY_TWO;
+                    return_order_by_two = levels.at(index) < levels.at(index+2) ? ASCENDING : DESCENDING;
                 }
             }
         } else { // but if we can look ahead by two but we are at the end of the line, we're clear
-            result = result == ValidStep::BY_ONE ? BOTH : BY_TWO;
+            result = result == BY_ONE ? BOTH : BY_TWO;
             return_order_by_two = order;
         }
     }
@@ -98,7 +98,7 @@ bool part2helper(int index, Ordering order, std::vector<int> levels, bool fault_
     } else {
         std::tuple<ValidStep, Ordering, Ordering> info = lookahead(index, order, levels, fault_used);
         bool result = false;
-        result = result || ((std::get<0>(info) == BOTH || std::get<0>(info) == ValidStep::BY_ONE) ? part2helper(index+1, std::get<1>(info), levels, fault_used): false);
+        result = result || ((std::get<0>(info) == BOTH || std::get<0>(info) == BY_ONE) ? part2helper(index+1, std::get<1>(info), levels, fault_used): false);
         result = result || ((std::get<0>(info) == BOTH || std::get<0>(info) == BY_TWO) ? part2helper(index+2, std::get<2>(info), levels, true): false);
         return result;
     }
@@ -116,7 +116,7 @@ void part2() {
         while(std::getline(iss, temp, ' ')) {
             levels.push_back(std::stoi(temp));
         }
-        if(part2helper(-1, Ordering::UNKNOWN, levels, false)){
+        if(part2helper(-1, UNKNOWN, levels, false)){
             counter++;
         }
     }
